@@ -24,7 +24,7 @@ class CanvasEmoji {
         });
         return {
             str,
-            emojiArr
+            emojiArr,
         };
     }
     drawPngReplaceEmoji(data) {
@@ -84,7 +84,7 @@ class CanvasEmoji {
     }
     async drawPngReplaceEmojiWithEmojicdn(data) {
         const { canvasCtx } = this;
-        const { fillStyle, font, y, emojiW, emojiH, emojiStyle = 'google' } = data;
+        const { fillStyle, font, y, emojiW, emojiH, emojiStyle = "google" } = data;
         let { text, x, length } = data;
         canvasCtx.fillStyle = fillStyle;
         canvasCtx.font = font;
@@ -106,7 +106,9 @@ class CanvasEmoji {
             canvasCtx.fillText(text.substring(0, index), x, y);
             ctxText = canvasCtx.measureText(text.substring(0, index));
             x += ctxText.width;
-            const url = encodeURI(`https://emojicdn.elk.sh/${emojiItem.replace("{", "").replace("}", "")}?style=${emojiStyle}`);
+            const url = encodeURI(`https://emojicdn.elk.sh/${emojiItem
+                .replace("{", "")
+                .replace("}", "")}?style=${emojiStyle}`);
             const emojiImg = await (0, canvas_1.loadImage)(url);
             canvasCtx.drawImage(emojiImg, x, y - (5 / 6) * emojiH, emojiW, emojiH);
             x += emojiW;

@@ -37,55 +37,57 @@ const { CanvasEmoji } = require("canvas-emoji");
 const fs = require("fs");
 
 function drawPngReplaceEmoji() {
-    const canvas = createCanvas(800, 200);
-    const canvasCtx = canvas.getContext("2d");
-    const canvasEmoji = new CanvasEmoji(canvasCtx);
-    const a = canvasEmoji.drawPngReplaceEmoji({
-        text: "测试一下哦💋💃测试一下💋测试一下💋💃测试一下💋测试一下💋💃",
-        fillStyle: "#000000",
-        font: "bold 12px Impact",
-        x: 0,
-        y: 100,
-        emojiW: 12,
-        emojiH: 12,
-        length: 20
-    });
-    const out = fs.createWriteStream(__dirname + "/test.png");
-    const stream = canvas.createPNGStream();
-    stream.pipe(out);
-    out.on("finish", () => console.log("The PNG file was created."));
-    return a;
+  const canvas = createCanvas(800, 200);
+  const canvasCtx = canvas.getContext("2d");
+  const canvasEmoji = new CanvasEmoji(canvasCtx);
+  const a = canvasEmoji.drawPngReplaceEmoji({
+    text: "测试一下哦💋💃测试一下💋测试一下💋💃测试一下💋测试一下💋💃",
+    fillStyle: "#000000",
+    font: "bold 12px Impact",
+    x: 0,
+    y: 100,
+    emojiW: 12,
+    emojiH: 12,
+    length: 20,
+  });
+  const out = fs.createWriteStream(__dirname + "/test.png");
+  const stream = canvas.createPNGStream();
+  stream.pipe(out);
+  out.on("finish", () => console.log("The PNG file was created."));
+  return a;
 }
 
 async function drawPngReplaceEmojiWithEmojicdn() {
-    const canvas = createCanvas(800, 200);
-    const canvasCtx = canvas.getContext("2d");
-    const canvasEmoji = new CanvasEmoji(canvasCtx);
-    const a = await canvasEmoji.drawPngReplaceEmojiWithEmojicdn({
-        text: "测试一下哦💋💃测试一下💋测试一下💋💃测试一下💋测试一下💋💃",
-        fillStyle: "#000000",
-        font: "bold 12px Impact",
-        x: 0,
-        y: 100,
-        emojiW: 12,
-        emojiH: 12,
-        length: 20,
-        emojiStyle: 'apple'
-    });
-    const out = fs.createWriteStream(__dirname + "/test2.png");
-    const stream = canvas.createPNGStream();
-    stream.pipe(out);
-    out.on("finish", () => console.log("The PNG file was created."));
-    return a;
+  const canvas = createCanvas(800, 200);
+  const canvasCtx = canvas.getContext("2d");
+  const canvasEmoji = new CanvasEmoji(canvasCtx);
+  const a = await canvasEmoji.drawPngReplaceEmojiWithEmojicdn({
+    text: "测试一下哦💋💃测试一下💋测试一下💋💃测试一下💋测试一下💋💃",
+    fillStyle: "#000000",
+    font: "bold 12px Impact",
+    x: 0,
+    y: 100,
+    emojiW: 12,
+    emojiH: 12,
+    length: 20,
+    emojiStyle: "apple",
+  });
+  const out = fs.createWriteStream(__dirname + "/test2.png");
+  const stream = canvas.createPNGStream();
+  stream.pipe(out);
+  out.on("finish", () => console.log("The PNG file was created."));
+  return a;
 }
 
 console.log(drawPngReplaceEmoji());
 drawPngReplaceEmojiWithEmojicdn();
 ```
+
 ### Method
+
 ```typescript
 // Use local images, faster
-drawPngReplaceEmoji(data: DrawPngReplaceEmojiParams): {x: number;}; 
+drawPngReplaceEmoji(data: DrawPngReplaceEmojiParams): {x: number;};
 
 // This method uses network pictures, and the style is more comprehensive
 drawPngReplaceEmojiWithEmojicdn(data: DrawPngReplaceEmojiParams): Promise<{ x: number; }>;
@@ -93,19 +95,20 @@ drawPngReplaceEmojiWithEmojicdn(data: DrawPngReplaceEmojiParams): Promise<{ x: n
 
 ### 参数
 
-| 参数      | 描述                                                     | 类型     | 是否必须 | default |
-| --------- |--------------------------------------------------------|--------| -------- |---------|
-| text      | 可能含有 emoji 表情的字符串                                      | string | 是       |
-| fillStyle | canvas 的 fillStyle                                     | string | 是       |
-| font      | canvas 的 font                                          | string | 是       |
-| x         | Canvas 坐标 x                                            | number | 是       |
-| y         | Canvas 坐标 y                                            | number | 是       |
-| emojiW    | emoji 表情的宽度                                            | number | 是       |
-| emojiH    | emoji 表情的高度                                            | number | 是       |
-| length    | 如果字符太长后面会超过 length 大小的会用...表示                          | number | 否       |
-| emojiStyle    | emoji样式,only support drawPngReplaceEmojiWithEmojicdn() | string | 否       | google  |
+| 参数       | 描述                                                      | 类型   | 是否必须 | default |
+| ---------- | --------------------------------------------------------- | ------ | -------- | ------- |
+| text       | 可能含有 emoji 表情的字符串                               | string | 是       |
+| fillStyle  | canvas 的 fillStyle                                       | string | 是       |
+| font       | canvas 的 font                                            | string | 是       |
+| x          | Canvas 坐标 x                                             | number | 是       |
+| y          | Canvas 坐标 y                                             | number | 是       |
+| emojiW     | emoji 表情的宽度                                          | number | 是       |
+| emojiH     | emoji 表情的高度                                          | number | 是       |
+| length     | 如果字符太长后面会超过 length 大小的会用...表示           | number | 否       |
+| emojiStyle | emoji 样式,only support drawPngReplaceEmojiWithEmojicdn() | string | 否       | google  |
 
 ### Supported emojiStyle styles:
+
 - apple
 - google
 - microsoft
@@ -126,4 +129,3 @@ drawPngReplaceEmojiWithEmojicdn(data: DrawPngReplaceEmojiParams): Promise<{ x: n
 | 字段 | 描述                   |
 | ---- | ---------------------- |
 | x    | 完成后的 Canvas 坐标 x |
-
