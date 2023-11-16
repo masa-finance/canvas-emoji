@@ -141,9 +141,11 @@ export class CanvasEmoji {
     const emojiSet = new Set();
     const emojiMap = new Map();
     const fun = async (emojiItem: string) => {
-      const url = encodeURI(`https://emojicdn.elk.sh/${emojiItem
-      .replace('{', '')
-      .replace('}', '')}?style=${emojiStyle}`);
+      const url = encodeURI(
+        `https://emojicdn.elk.sh/${emojiItem
+          .replace("{", "")
+          .replace("}", "")}?style=${emojiStyle}`,
+      );
       const emojiImg = await loadImage(url);
       emojiMap.set(emojiItem, emojiImg);
     };

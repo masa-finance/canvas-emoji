@@ -56,13 +56,17 @@ class CanvasEmoji {
             const emojiName = emojiItem.replace("{", "").replace("}", "");
             let src = emojiMap.get(emojiName);
             if (!src) {
-                src = fs.readFileSync(path.join(__dirname, `../emoji_pngs/${emojiName}.png`));
-                emojiMap.set(emojiName, src);
+                if (fs.existsSync(path.join(__dirname, `../emoji_pngs/${emojiName}.png`))) {
+                    src = fs.readFileSync(path.join(__dirname, `../emoji_pngs/${emojiName}.png`));
+                    emojiMap.set(emojiName, src);
+                }
             }
-            emojiImg.src = src;
-            canvasCtx.drawImage(emojiImg, x, y - (5 / 6) * emojiH, emojiW, emojiH);
-            x += emojiW;
-            text = text.substr(index + emojiItem.length);
+            if (src) {
+                emojiImg.src = src;
+                canvasCtx.drawImage(emojiImg, x, y - (5 / 6) * emojiH, emojiW, emojiH);
+                x += emojiW;
+            }
+            text = text.substring(index + emojiItem.length);
             i++;
             if (i === emojiArr.length) {
                 canvasCtx.fillText(text, x, y);
